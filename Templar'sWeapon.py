@@ -1,3 +1,4 @@
+'''
 def measure(number):
     numbercount=[]
     for z in range(number+1):
@@ -7,6 +8,24 @@ def measure(number):
                 count.append(i)
             i+=1
         numbercount.append(len(count))
+        z+=1
+    numbercount.remove(0)
+        
+    return numbercount
+'''
+
+def measure(number):
+    numbercount=[]
+    for z in range(number+1):
+        count=0
+        i=1
+        while i*i <= z:
+            if z%(i)==0:
+                count += 1
+                if i*i < z:
+                    count +=1
+            i+=1
+        numbercount.append(count)
         z+=1
     numbercount.remove(0)
         
