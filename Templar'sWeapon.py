@@ -13,6 +13,11 @@ def measure(number):
         
     return numbercount
 '''
+#def measure 수정하여 통과
+#참고
+#자신 제외 가장 작은 약수 n/2
+#https://doodle-ns.tistory.com/32
+#여러 수에서 소수 찾기 에라토스테네스의 체 https://ko.wikipedia.org/wiki/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98_%EC%B2%B4
 
 def measure(number):
     numbercount=[]
