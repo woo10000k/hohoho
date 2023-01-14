@@ -30,3 +30,6 @@ def solution(n, lost, reserve):
             i += 1
     
     return answer
+
+
+#프로그래머스 lv1 체육복 (탐욕법Greedy)
