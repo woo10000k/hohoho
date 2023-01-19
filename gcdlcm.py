@@ -25,3 +25,15 @@ for i in range(N*2):
     A, B = (int(arr[i][0]), int(arr[i][1]))
     print(gcd(A,B),int((A*B)/gcd(A,B)))
     i+1
+
+
+'''
+3
+
+120 140
+
+10213 312
+
+10 30
+'''
+
