@@ -11,3 +11,5 @@ int solution(int n, int t) {
     }
     return answer;
 }
+
+//프로
