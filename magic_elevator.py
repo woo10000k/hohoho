@@ -34,7 +34,7 @@ def solution(storey):
             answer += 0
     return answer
    
-    
+    #9 
     
     
     #실패코드임 수정필요
