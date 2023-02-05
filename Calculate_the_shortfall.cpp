@@ -19,3 +19,4 @@ long long solution(int price, int money, int count){
 
 //프로그래머스 Lv.1 부족한 금액 계산하기
 //일일방지용
+//cpp
