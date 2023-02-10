@@ -3,3 +3,4 @@ def solution(id_list, report, k):
     return answer
   
 #프로그래머스 코테 연습 - kakao 2022 blind 신고 결과
+#주말간풀기
