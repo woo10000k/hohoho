@@ -33,3 +33,4 @@ def solution(k, tangerine):
 
 #while 돌기 전에 dict 에서 value -> list -> sort 후 while // 시간 통과
 #아래 내용은 value 최대값을 계속 찾아야 하기 때문에 dict를 while 돌때마다 탐색, 미리 정렬해 놓으면 한번만 탐색후 1 
+#...
