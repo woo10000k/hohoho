@@ -51,3 +51,4 @@ if __name__ == '__main__':
     app.exec_()
   
 #2.20 button click, directory 선택, meta 들어가서 json filelist list view에 뿌려주기
+#label 에 image sample 띄우기
