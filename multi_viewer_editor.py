@@ -19,12 +19,12 @@ class WindowClass(QMainWindow, form_class):
         super().__init__()
         self.setupUi(self)
         self.btn_test.clicked.connect(self.list_update)
+        self.btn_test.clicked.connect(self.image_viewer)
 
     def testclick(self):
         global folder
         folder = QFileDialog.getExistingDirectory(self, "Select Directory")
-
-
+        
     def list_update(self):
         pathlist = []
         file_name = []
@@ -40,6 +40,22 @@ class WindowClass(QMainWindow, form_class):
         for k in range(len(pathlist)):
             file_name = pathlist[k]        
         self.listView.setModel(folder_model)
+
+    def image_viewer(self):
+        self.qPixmapVar = QPixmap()
+        self.qPixmapVar.load('test/SCENE-N-0002_FRAME_000000.png')
+        self.qPixmapVar = self.qPixmapVar.scaledToWidth(600)
+        self.label.setPixmap(self.qPixmapVar)
+
+    def Selectionlist(self):
+        lst_item = self.listwidget.selectedItems()
+        for item in lst_item:
+            print(item.text())
+
+
+#    def list_viewer(self):
+        
+
 
 
 if __name__ == '__main__':
