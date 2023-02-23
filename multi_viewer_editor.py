@@ -21,6 +21,11 @@ class WindowClass(QMainWindow, form_class):
         self.btn_test.clicked.connect(self.list_update)
         self.btn_test.clicked.connect(self.image_viewer)
 
+
+        self.model = QStandardItemModel()
+        self.listView.setModel(self.model)
+        self.listView.selectionModel().selectionChanged.connect(self.on_list_item_selection_changed)
+
     def testclick(self):
         global folder
         folder = QFileDialog.getExistingDirectory(self, "Select Directory")
@@ -47,10 +52,16 @@ class WindowClass(QMainWindow, form_class):
         self.qPixmapVar = self.qPixmapVar.scaledToWidth(600)
         self.label.setPixmap(self.qPixmapVar)
 
-    def Selectionlist(self):
-        lst_item = self.listwidget.selectedItems()
-        for item in lst_item:
-            print(item.text())
+    def on_list_item_selection_changed(self):
+        selected_item_text = self.get_selected_item_text()
+        print("Selected item text: ", selected_item_text)
+
+    def get_selected_item_text(self):
+        selected_indexes = self.listView.selectedIndexes()
+        if selected_indexes:
+            return selected_indexes[0].data()
+        else:
+            return None   
 
 
 #    def list_viewer(self):
@@ -68,3 +79,4 @@ if __name__ == '__main__':
   
 #2.20 button click, directory 선택, meta 들어가서 json filelist list view에 뿌려주기
 #label 에 image sample 띄우기
+#list view with gpt
