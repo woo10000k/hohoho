@@ -3,6 +3,7 @@ import sys
 import numpy
 import cv2
 import glob
+import json
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -22,8 +23,8 @@ class WindowClass(QMainWindow, form_class):
         self.btn_test.clicked.connect(self.image_viewer)
 
 
-        self.model = QStandardItemModel()
-        self.listView.setModel(self.model)
+        self.folder_model = QStandardItemModel()
+        self.listView.setModel(self.folder_model)
         self.listView.selectionModel().selectionChanged.connect(self.on_list_item_selection_changed)
 
     def testclick(self):
@@ -31,20 +32,22 @@ class WindowClass(QMainWindow, form_class):
         folder = QFileDialog.getExistingDirectory(self, "Select Directory")
         
     def list_update(self):
+        global folder_model
         pathlist = []
         file_name = []
         folder_list = folder+"/meta/"
-        folder_model = QStandardItemModel()
+#        folder_model = QStandardItemModel()
+        self.folder_model.clear()
         for (folder_list, dir, file) in os.walk(folder_list):
             if len(file) != 0:
                 file = sorted(file)
                 for i in range(len(file)):
                     pathlist.append(folder_list + "/" + file[i])
-                    folder_model.appendRow(QStandardItem(str(i+1)+"."+file[i]))
+                    self.folder_model.appendRow(QStandardItem(str(i+1)+"."+file[i]))
 
         for k in range(len(pathlist)):
             file_name = pathlist[k]        
-        self.listView.setModel(folder_model)
+        self.listView.setModel(self.folder_model)
 
     def image_viewer(self):
         self.qPixmapVar = QPixmap()
@@ -53,6 +56,7 @@ class WindowClass(QMainWindow, form_class):
         self.label.setPixmap(self.qPixmapVar)
 
     def on_list_item_selection_changed(self):
+        global selected_item_text 
         selected_item_text = self.get_selected_item_text()
         print("Selected item text: ", selected_item_text)
 
@@ -80,3 +84,4 @@ if __name__ == '__main__':
 #2.20 button click, directory 선택, meta 들어가서 json filelist list view에 뿌려주기
 #label 에 image sample 띄우기
 #list view with gpt
+#print(select item text)
