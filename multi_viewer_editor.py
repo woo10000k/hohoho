@@ -3,7 +3,10 @@ import sys
 import numpy
 import cv2
 import glob
+
 import json
+
+from pathlib import Path
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -20,38 +23,41 @@ class WindowClass(QMainWindow, form_class):
         super().__init__()
         self.setupUi(self)
         self.btn_test.clicked.connect(self.list_update)
-        self.btn_test.clicked.connect(self.image_viewer)
+#        self.btn_test.clicked.connect(self.image_viewer)
 
 
         self.folder_model = QStandardItemModel()
         self.listView.setModel(self.folder_model)
         self.listView.selectionModel().selectionChanged.connect(self.on_list_item_selection_changed)
+        self.listView.selectionModel().selectionChanged.connect(self.image_viewer)
 
     def testclick(self):
         global folder
         folder = QFileDialog.getExistingDirectory(self, "Select Directory")
         
     def list_update(self):
-        global folder_model
+        global meta_map_list
         pathlist = []
         file_name = []
-        folder_list = folder+"/meta/"
-#        folder_model = QStandardItemModel()
-        self.folder_model.clear()
-        for (folder_list, dir, file) in os.walk(folder_list):
-            if len(file) != 0:
-                file = sorted(file)
-                for i in range(len(file)):
-                    pathlist.append(folder_list + "/" + file[i])
-                    self.folder_model.appendRow(QStandardItem(str(i+1)+"."+file[i]))
 
-        for k in range(len(pathlist)):
-            file_name = pathlist[k]        
+        self.folder_model.clear()
+
+        meta_map = {}
+        for p in Path(folder, 'meta').rglob('*.json'):
+            with open(p, 'r', encoding='utf-8') as f:
+                meta = json.load(f)
+            meta_map[meta['data_key']] = meta['label_path'][0]
+        meta_map_list=sorted(list(meta_map.keys()))
+
+        for i in range(len(meta_map_list)):
+            self.folder_model.appendRow(QStandardItem(meta_map_list[i]))
+
+      
         self.listView.setModel(self.folder_model)
 
     def image_viewer(self):
         self.qPixmapVar = QPixmap()
-        self.qPixmapVar.load('test/SCENE-N-0002_FRAME_000000.png')
+        self.qPixmapVar.load('images/'+selected_item_text)
         self.qPixmapVar = self.qPixmapVar.scaledToWidth(600)
         self.label.setPixmap(self.qPixmapVar)
 
@@ -59,6 +65,7 @@ class WindowClass(QMainWindow, form_class):
         global selected_item_text 
         selected_item_text = self.get_selected_item_text()
         print("Selected item text: ", selected_item_text)
+
 
     def get_selected_item_text(self):
         selected_indexes = self.listView.selectedIndexes()
@@ -82,6 +89,4 @@ if __name__ == '__main__':
     app.exec_()
   
 #2.20 button click, directory 선택, meta 들어가서 json filelist list view에 뿌려주기
-#label 에 image sample 띄우기
-#list view with gpt
-#print(select item text)
+#meta map-> key sort 하여 list view에 경로 띄우기, list view 이동시 label에 경로 이
