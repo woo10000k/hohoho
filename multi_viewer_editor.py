@@ -90,3 +90,4 @@ if __name__ == '__main__':
   
 #2.20 button click, directory 선택, meta 들어가서 json filelist list view에 뿌려주기
 #meta map-> key sort 하여 list view에 경로 띄우기, list view 이동시 label에 경로 이
+#label 추가 및 같은 파일명 한단계위 상위폴더 탐색하여 띄우기 기능 추가 todo
